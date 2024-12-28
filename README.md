@@ -3,8 +3,10 @@
 ## Program fisrt commit in 12/28/2024
 
 ### **As-Is**
-1. Simple UI
+
 ![image](https://github.com/user-attachments/assets/c0e5521f-1206-4ca2-aff1-d3f112d0d829)
+
+1. Simple UI
 - currently just have some buttons
 - Explanation
 - Play : play...
