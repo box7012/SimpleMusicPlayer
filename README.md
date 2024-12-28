@@ -2,11 +2,17 @@
 
 ## Program fisrt commit in 12/28/2024
 
-
-
 ### **As-Is**
 1. Simple UI
 - currently just have some buttons
+![image](https://github.com/user-attachments/assets/c0e5521f-1206-4ca2-aff1-d3f112d0d829)
+- Explanation
+- Play : play...
+- Pause : pause...
+- 10 Seconds Forward : 10 Seconds Forward...
+- gauge bar : gauge bar...
+
+
 
 ### **To-Be**
 1. Change the singer : With clicking the button written with musicians, the song would be changed into the voice of the musician
