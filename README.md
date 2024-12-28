@@ -17,8 +17,9 @@
 
 
 ### **To-Be**
-1. Change the singer : With clicking the button written with musicians, the song would be changed into the voice of the musician
-2. Alarming function : By checking this function, you could turn-on or turn-off whenever you want!
-3. Editing the song : cliping(or just cutting), change the data type, etc...
-4. List function : you can make your own music-list
+1. Alarming function : By checking this function, you could turn-on or turn-off whenever you want!
+2. make a link about the music : maybe... you can just write down the link and it could autimatically edit and just give the cutted part (just music part maybe..)
+3. Change the singer : With clicking the button written with musicians, the song would be changed into the voice of the musician
+4. Editing the song : cliping(or just cutting), change the data type, etc...
+5. List function : you can make your own music-list
 
