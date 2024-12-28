@@ -4,8 +4,8 @@
 
 ### **As-Is**
 1. Simple UI
-- currently just have some buttons
 ![image](https://github.com/user-attachments/assets/c0e5521f-1206-4ca2-aff1-d3f112d0d829)
+- currently just have some buttons
 - Explanation
 - Play : play...
 - Pause : pause...
@@ -18,4 +18,5 @@
 1. Change the singer : With clicking the button written with musicians, the song would be changed into the voice of the musician
 2. Alarming function : By checking this function, you could turn-on or turn-off whenever you want!
 3. Editing the song : cliping(or just cutting), change the data type, etc...
+4. List function : you can make your own music-list
 
