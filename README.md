@@ -1,6 +1,10 @@
 # Music Player containing some sorts of AI techniques
 
 ## Program fisrt commit in 12/28/2024
+Build with
+- IDE : vscode
+- Language : JAVA
+- Build Tool : maven
 
 ### **As-Is**
 
