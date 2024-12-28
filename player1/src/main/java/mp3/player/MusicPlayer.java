@@ -27,6 +27,12 @@ public class MusicPlayer {
     public void pause() {
         mediaPlayer.pause();
     }
+    
+    public void stop() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+    }
 
     public void forward() {
         mediaPlayer.seek(mediaPlayer.getCurrentTime().add(Duration.seconds(10)));
