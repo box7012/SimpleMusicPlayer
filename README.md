@@ -8,7 +8,8 @@
 
 ### **As-Is**
 
-![image](https://github.com/user-attachments/assets/d8eda4f0-85fe-4fa7-95c2-a2c63c97a6ff)
+![image](https://github.com/user-attachments/assets/e6428f14-cf39-4ec9-a430-3cfb4c9c3bbf)
+
 
 
 1. Simple UI
