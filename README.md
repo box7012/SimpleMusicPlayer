@@ -8,7 +8,8 @@
 
 ### **As-Is**
 
-![image](https://github.com/user-attachments/assets/c0e5521f-1206-4ca2-aff1-d3f112d0d829)
+![image](https://github.com/user-attachments/assets/d8eda4f0-85fe-4fa7-95c2-a2c63c97a6ff)
+
 
 1. Simple UI
 - currently just have some buttons
@@ -16,7 +17,7 @@
 - Play : play...
 - Pause : pause...
 - 10 Seconds Forward : 10 Seconds Forward...
-- gauge bar : gauge bar...
+- progress bar : you can go to 
 
 
 
