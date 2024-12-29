@@ -8,17 +8,17 @@
 
 ### **As-Is**
 
-![image](https://github.com/user-attachments/assets/e6428f14-cf39-4ec9-a430-3cfb4c9c3bbf)
+![image](https://github.com/user-attachments/assets/42e16ca7-6178-46ba-8a07-89fe5dafd490)
+
 
 
 
 1. Simple UI
 - currently just have some buttons
 - Explanation
-- Play : play...
-- Pause : pause...
-- 10 Seconds Forward : 10 Seconds Forward...
-- progress bar : you can go to 
+- play, pause button
+- progress bar
+- volume control
 
 
 
