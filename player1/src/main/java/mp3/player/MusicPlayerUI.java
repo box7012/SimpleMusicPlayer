@@ -211,7 +211,8 @@ public class MusicPlayerUI extends Application {
 
     // ProgressBar 시각적 업데이트
     private void updateProgressBarVisual() {
-        if (startPoint >= 0 && endPoint > startPoint) {
+        // if (startPoint >= 0 && endPoint > startPoint) {
+        if (startPoint >= 0) {
             double startRatio = startPoint / musicPlayer.getDuration().toSeconds(); // 음악의 길이에 맞춰 비율 계산
             double endRatio = endPoint / musicPlayer.getDuration().toSeconds();
 
