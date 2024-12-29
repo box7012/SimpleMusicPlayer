@@ -6,10 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Slider;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -22,6 +22,7 @@ public class MusicPlayerUI extends Application {
     private List<File> musicFiles = new ArrayList<>();  // 파일 목록 저장
     private ListView<String> musicListView = new ListView<>();  // 음악 목록 표시
     private ProgressBar progressBar = new ProgressBar(0);  // ProgressBar 추가
+    private Slider volumeSlider = new Slider(0, 1, 0.5);
 
     @Override
     public void start(Stage primaryStage) {
@@ -77,10 +78,19 @@ public class MusicPlayerUI extends Application {
         musicListView.setOnMouseClicked(e -> {
             if (musicListView.getSelectionModel().getSelectedItem() != null) {
                 String selectedFilePath = musicListView.getSelectionModel().getSelectedItem();
+        
+                // 이전 음악이 있다면 멈추기
+                if (musicPlayer != null) {
+                    musicPlayer.stop();  // 이전 음악 정지
+                }
+        
+                // 새로운 음악 파일로 음악 플레이어 업데이트
                 musicPlayer = new MusicPlayer(selectedFilePath);
+                
+                // Play 버튼 활성화
                 playButton.setDisable(false);
                 pauseButton.setDisable(false);
-
+        
                 // Bind progress bar to the MediaPlayer's current time
                 musicPlayer.getMediaPlayer().currentTimeProperty().addListener((obs, oldTime, newTime) -> {
                     if (!progressBar.isPressed() && musicPlayer.getDuration() != null) {
@@ -104,11 +114,36 @@ public class MusicPlayerUI extends Application {
             }
         });
 
+        // Handle progress bar click to change music position
+        progressBar.setOnMouseClicked(e -> {
+            if (musicPlayer != null && musicPlayer.getDuration() != null) {
+                double clickPosition = e.getX() / progressBar.getWidth();  // 클릭된 비율
+                double newTimeInMillis = clickPosition * musicPlayer.getDuration().toMillis();
+                
+                // musicPlayer.seek()에 정확한 Duration을 전달
+                musicPlayer.seek(javafx.util.Duration.millis(newTimeInMillis));  
+            }
+        });
+
+        volumeSlider.setBlockIncrement(0.1);
+        volumeSlider.setMajorTickUnit(0.2);
+        volumeSlider.setMinorTickCount(4);
+        volumeSlider.setShowTickLabels(true);
+        volumeSlider.setValue(0.5);
+
+        // 볼륨 슬라이더 리스너
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (musicPlayer != null) {
+                musicPlayer.getMediaPlayer().setVolume(newValue.doubleValue()); // 볼륨을 슬라이더 값에 맞게 설정
+            }
+        });
+
+
         // Layout
-        HBox controls = new HBox(10, playButton, pauseButton);
+        HBox controls = new HBox(10, playButton, pauseButton, progressBar);
         controls.setAlignment(Pos.CENTER);
 
-        VBox root = new VBox(15, chooseFileButton, musicListView, controls, progressBar); // ProgressBar 위치 수정
+        VBox root = new VBox(15, chooseFileButton, musicListView, controls, volumeSlider); // ProgressBar 위치 수정
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color: #f0f0f0; -fx-padding: 20px;");
 

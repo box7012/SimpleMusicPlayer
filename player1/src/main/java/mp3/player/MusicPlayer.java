@@ -38,8 +38,10 @@ public class MusicPlayer {
         mediaPlayer.seek(mediaPlayer.getCurrentTime().add(Duration.seconds(10)));
     }
 
-    public void seekTo(double position) {
-        mediaPlayer.seek(media.getDuration().multiply(position));
+    public void seek(Duration position) {
+        // position이 비율일 경우, Duration에 해당하는 시간으로 계산
+        double newTimeInMillis = position.toMillis();
+        mediaPlayer.seek(javafx.util.Duration.millis(newTimeInMillis));
     }
 
     public Duration getCurrentTime() {
@@ -49,4 +51,5 @@ public class MusicPlayer {
     public Duration getDuration() {
         return media.getDuration();
     }
+
 }
