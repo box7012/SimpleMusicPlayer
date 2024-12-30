@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +59,9 @@ public class MusicPlayerUI extends Application {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 Files", "*.mp3"));
 
         // ProgressBar 스타일
-        progressBar.setStyle("-fx-accent: #4CAF50;");
-
+        progressBar.setStyle("-fx-accent: #c07cb5;");
+        progressBar.prefWidthProperty().bind(primaryStage.widthProperty());
+        
         // Choose File Button action
         chooseFileButton.setOnAction(e -> {
             File selectedFile = fileChooser.showOpenDialog(primaryStage);
@@ -156,7 +158,7 @@ public class MusicPlayerUI extends Application {
         HBox controls = new HBox(10, playButton, pauseButton, progressBar, saveTrimmedButton);
         controls.setAlignment(Pos.CENTER);
 
-        VBox root = new VBox(15, chooseFileButton, musicListView, controls, volumeSlider); // ProgressBar 위치 수정
+        VBox root = new VBox(15, chooseFileButton, musicListView, controls, progressBar, volumeSlider); // ProgressBar 위치 수정
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color:rgb(219, 162, 162); -fx-padding: 20px;");
 
@@ -178,7 +180,6 @@ public class MusicPlayerUI extends Application {
         }
     }
 
-
     // ProgressBar 클릭 이벤트 처리
     private void handleProgressBarClick(MouseEvent e) {
         if (musicPlayer != null && musicPlayer.getDuration() != null) {
@@ -189,16 +190,15 @@ public class MusicPlayerUI extends Application {
             if (e.isControlDown()) {
                 // Ctrl 키가 눌린 상태: 구간 설정
                 startPoint = clickedTime;  // 시작 지점 설정
-                System.out.println(startPoint);
+                progressBar.setProgress(startPoint / musicPlayer.getDuration().toMillis());
    
             } else if (e.isAltDown()) {
                 if (clickedTime > startPoint) {
                     endPoint = clickedTime;  // 끝 지점 설정
-                    System.out.println(endPoint);
                 }
             } else {
-                // Ctrl 키가 눌리지 않은 상태: 음악 위치 이동
-                musicPlayer.seek(javafx.util.Duration.seconds(clickedTime));
+                    musicPlayer.seek(javafx.util.Duration.seconds(clickedTime));
+                    progressBar.setProgress(clickedTime / musicPlayer.getDuration().toMillis());   
             }
         }
 
@@ -211,20 +211,30 @@ public class MusicPlayerUI extends Application {
 
     // ProgressBar 시각적 업데이트
     private void updateProgressBarVisual() {
-        // if (startPoint >= 0 && endPoint > startPoint) {
         if (startPoint >= 0) {
-            double startRatio = startPoint / musicPlayer.getDuration().toSeconds(); // 음악의 길이에 맞춰 비율 계산
+            System.out.println("startPoint :" + startPoint +"endpoint :" + endPoint);
+            double startRatio = startPoint / musicPlayer.getDuration().toSeconds(); // 음악 길이에 따른 비율 계산
             double endRatio = endPoint / musicPlayer.getDuration().toSeconds();
-
-            // startRatio와 endRatio를 사용하여 구간을 표시할 수 있도록 스타일 업데이트
+    
+            // startPoint 전까지는 초록색, startPoint ~ endPoint는 빨간색, endPoint 이후는 초록색
             progressBar.setStyle(String.format(
-                "-fx-accent: linear-gradient(to right, #4CAF50 %.2f%%, #FF0000 %.2f%%, #4CAF50 %.2f%%);", 
-                startRatio * 100, startRatio * 100, endRatio * 100));
+                "-fx-background-color: linear-gradient(to right, "
+                    + "#f00000 %.2f%%, "  // 초록색 (startPoint 이전)
+                    + "#2f00ff %.2f%%, "  // 빨간색 (startPoint ~ endPoint)
+                    + "#2f00ff %.2f%%, "  // 빨간색 (startPoint ~ endPoint)
+                    + "#f00000 %.2f%%);", // 초록색 (endPoint 이후)
+                startRatio * 100,        // startPoint의 비율
+                startRatio * 100,        // 빨간색 시작 비율
+                endRatio * 100,          // 빨간색 끝 비율
+                endRatio * 100));        // 초록색 시작 비율
         }
     }
+
+
+
     // FFmpeg를 사용해 MP3 구간 저장
     private void saveTrimmedMP3(File inputFile, double start, double end) {
-        File outputFile = new File(inputFile.getParent(), "trimmed_" + inputFile.getName());
+        File outputFile = new File(inputFile.getParent(), LocalDate.now() + "trimmed_" + inputFile.getName());
         String startStr = String.format("%.2f", start);
         String durationStr = String.format("%.2f", end - start);
 
@@ -234,7 +244,7 @@ public class MusicPlayerUI extends Application {
         try {
             Process process = Runtime.getRuntime().exec(command);
             process.waitFor();
-            showAlert("Success", "Trimmed file saved at: " + outputFile.getAbsolutePath());
+            showAlert("Success", "Trimmed file saved at: " + LocalDate.now() + outputFile.getAbsolutePath());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             showAlert("Error", "Failed to trim the MP3 file.");

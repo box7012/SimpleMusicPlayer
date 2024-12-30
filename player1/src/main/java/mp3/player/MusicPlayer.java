@@ -23,7 +23,7 @@ public class MusicPlayer {
     public void play() {
         mediaPlayer.play();
     }
-
+ 
     public void pause() {
         mediaPlayer.pause();
     }
