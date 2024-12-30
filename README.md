@@ -8,16 +8,15 @@
 
 ### **As-Is**
 
-![image](https://github.com/user-attachments/assets/42e16ca7-6178-46ba-8a07-89fe5dafd490)
+![image](https://github.com/user-attachments/assets/4b34ad13-2d8e-4b4a-950d-d14b2bc0d958)
 
 
 
 
-1. Simple UI
-- currently just have some buttons
-- Explanation
+#### Explanation
 - play, pause button
-- progress bar
+- progress bar : you can choose start point by mouse click with ctrl pressed, end end point by mouse click with alt pressed. then the save button will be activated.
+Then you can save the trimmed file.
 - volume control
 
 
