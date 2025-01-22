@@ -1,4 +1,4 @@
-# Music Player containing some sorts of AI techniques
+# Music Player
 
 ## Program fisrt commit in 12/28/2024
 **Development Environment**
